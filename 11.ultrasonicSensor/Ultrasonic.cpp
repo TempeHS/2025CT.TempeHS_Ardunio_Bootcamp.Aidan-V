@@ -45,7 +45,7 @@ unsigned int Ultrasonic::timing() {
   digitalWrite(trig, HIGH);
   delayMicroseconds(10);
   digitalWrite(trig, LOW);
-  delay(30);
+  //delay(30);
 
   if (threePins)
     pinMode(trig, INPUT);

@@ -24,12 +24,28 @@
 */
 
 #include "Ultrasonic.h"
+#include <Servo.h>
 
-void setup()
-{
-  
+
+Servo myservo;
+Ultrasonic braj_the_sensor(5);
+
+
+unsigned static int servoPin = 7;
+unsigned static int potpin = A2;
+
+
+void setup() {
+  myservo.attach(servoPin);
+  Serial.begin(9600);
 }
-void loop()
-{
-  
+
+void loop() {
+  Serial.println(braj_the_sensor.distanceRead());
+
+  int val = analogRead(potpin);
+  val = map(val, 0, 1023, 180, 0);
+  myservo.write(val);
 }
+
+

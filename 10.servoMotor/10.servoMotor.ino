@@ -37,3 +37,5 @@ void loop() {
   val = map(val, 0, 1023, 180, 0);
   myservo.write(val);
 }
+
+
