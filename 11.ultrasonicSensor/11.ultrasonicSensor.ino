@@ -28,12 +28,13 @@
 
 
 Servo myservo;
-Ultrasonic braj_the_sensor(5);
+Ultrasonic braj(5);
 
 
 unsigned static int servoPin = 7;
 unsigned static int potpin = A2;
-
+unsigned long previousMillis = 0;
+const unsigned long gateInterval = 5000;
 
 void setup() {
   myservo.attach(servoPin);
@@ -41,11 +42,27 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(braj_the_sensor.distanceRead());
 
+   unsigned long currentMillis = millis();
   int val = analogRead(potpin);
-  val = map(val, 0, 1023, 180, 0);
-  myservo.write(val);
+
+  Serial.println(braj.distanceRead());
+
+  if (braj.distanceRead() <= 20) {
+    
+    myservo.write(90);
+    previousMillis = currentMillis;
+
+  } else {
+
+
+
+    if (currentMillis - previousMillis >= gateInterval) {
+
+      myservo.write(180);
+
+    }
+  }
 }
 
 
