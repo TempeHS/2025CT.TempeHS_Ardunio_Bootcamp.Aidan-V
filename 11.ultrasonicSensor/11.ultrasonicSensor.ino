@@ -34,7 +34,7 @@ Ultrasonic braj(5);
 unsigned static int servoPin = 7;
 unsigned static int potpin = A2;
 unsigned long previousMillis = 0;
-const unsigned long gateInterval = 5000;
+const unsigned long time = 500;
 
 void setup() {
   myservo.attach(servoPin);
@@ -48,7 +48,7 @@ void loop() {
 
   Serial.println(braj.distanceRead());
 
-  if (braj.distanceRead() <= 20) {
+  if (braj.distanceRead() <= 10) {
     
     myservo.write(90);
     previousMillis = currentMillis;
@@ -57,7 +57,7 @@ void loop() {
 
 
 
-    if (currentMillis - previousMillis >= gateInterval) {
+    if (currentMillis - previousMillis >= time) {
 
       myservo.write(180);
 
@@ -65,4 +65,6 @@ void loop() {
   }
 }
 
-
+// val = map(val, 0, 1023, 0, 180)
+// myservo.wrote(val)
+// Serial.println(analogRead(potpin))
