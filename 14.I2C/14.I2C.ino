@@ -26,12 +26,39 @@
     Air Pressure Sensor: https://github.com/TempeHS/TempeHS_Ardunio_Boilerplate/blob/main/TempeHS_Sensor_Catalogue/Sensor%20Kit/Air_Pressure_Sensor/Air_Pressure_Sensor.ino
 */
 
-#include <Wire.h>
-
-void setup() {
-
+#include "Arduino_SensorKit.h"
+ 
+unsigned int x = 120;
+unsigned int y = 120;
+ 
+void setup()
+{
+  Oled.begin();
+  Oled.setFlipMode(true);
+  Serial.begin(9600);
+  Accelerometer.begin();
 }
-
-void loop() {
-
+ 
+void loop()
+{
+ while (!gameOver())
+ {
+    Oled.setFont(u8x8_font_chroma48medium8_r);   // choose a suitable font
+    Oled.setCursor(x, y);
+    Oled.print("O");    // write something to the internal memory
+    delay(100);
+   
+ 
+ 
+  Serial.print("x:");
+  Serial.print(Accelerometer.readX());
+  Serial.print("  ");
+  Serial.print("y:");
+  Serial.print(Accelerometer.readY());        
+  Serial.print("  ");
+  Serial.print("z:");
+  Serial.println(Accelerometer.readZ());
+ 
+  delay(500);
+ }
 }
